@@ -24,9 +24,7 @@
                 <Viewbox Height="46" HorizontalAlignment="Left" >
                     <CheckBox Content="VideoCon"  HorizontalAlignment="Left"   Name="VideoCon" VerticalAlignment="Top"  Checked="checkBox_Checked" Unchecked="checkBox_Unchecked" />
                 </Viewbox>
-                <Viewbox Height="46" HorizontalAlignment="Left" >
-                    <CheckBox Content="D2H" Height="16" HorizontalAlignment="Left"  Name="D2H" VerticalAlignment="Top"  Checked="checkBox_Checked" Unchecked="checkBox_Unchecked" />
-                </Viewbox>
+                
                 <Viewbox Height="46" HorizontalAlignment="Left" >
                     <CheckBox Content="DishTv" Height="16" HorizontalAlignment="Left"   Name="DishTv" VerticalAlignment="Top"  Checked="checkBox_Checked" Unchecked="checkBox_Unchecked" />
                 </Viewbox>

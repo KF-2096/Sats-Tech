@@ -18,10 +18,17 @@ namespace Variedades
             try
             {
                 conn.Open();
-                String query = " insert into sms_queue (mobile_number,message,status) " +
-                    " select mobile,CONCAT('Dear customer,\nYour DTH subscription going to expire.\nPlease pay your bill on or before ', " +
-                    " DATE_FORMAT(DATE_ADD(now(), INTERVAL 4 DAY), '%Y/%m/%d'), '.\nHELP LINE:0768866972') as message, 'PENDING' " +
-                    " from customer where id in (select customer_id from reload where datediff(expiry_date, now()) = 4 ) ";
+                //String query = " insert into sms_queue (mobile_number,message,status) " +
+                //    " select mobile,CONCAT('Dear customer,\nYour DTH subscription going to expire.\nPlease pay your bill on or before ', " +
+                //    " DATE_FORMAT(DATE_ADD(now(), INTERVAL 4 DAY), '%Y/%m/%d'), '.\nHELP LINE:0768866972') as message, 'PENDING' " +
+                //    " from customer where id in (select customer_id from reload where datediff(expiry_date, now()) = 4 ) ";
+
+                String query = " insert into sms_queue(mobile_number, message, status) " +
+" select mobile, CONCAT('Dear customer,\nYour ', provider, ' subscription is going to expire.\nPlease pay your bill on or before ', " +
+" DATE_FORMAT(DATE_ADD(now(), INTERVAL 4 DAY), '%Y/%m/%d'), ' .')  as message , 'PENDING' as status " +
+" from reload join customer on reload.customer_id = customer.id " +
+" where datediff(expiry_date, now()) = 4 ";
+
                 MySqlCommand sqlCmd = new MySqlCommand(query, conn);
                 sqlCmd.Prepare();
                 sqlCmd.ExecuteNonQuery();
@@ -36,7 +43,7 @@ namespace Variedades
                 conn.Close();
             }
 
-            await Console.Out.WriteLineAsync("Greetings from SMS Job!");
+            await Console.Out.WriteLineAsync("Greetings from ReminderJob Job!");
         }
     }
 }

@@ -27,7 +27,6 @@ namespace Variedades
                 MySqlCommand sqlCmd = new MySqlCommand(query, conn);
                 sqlCmd.Prepare();
                 MySqlDataReader rdr = sqlCmd.ExecuteReader();
-                
                 while (rdr.Read())
                 {
                     SMS newSms = new SMS();
@@ -35,10 +34,8 @@ namespace Variedades
                     newSms.mobile = rdr.GetString(1);
                     newSms.message = rdr.GetString(2);
                     newSms.status = rdr.GetString(3);
-
                     sms.Add(newSms);
                 }
-                
             }
             catch (Exception err)
             {
@@ -52,8 +49,6 @@ namespace Variedades
         }
         private void SendSMS(List<SMS> sms)
         {
-           
-            
             Console.WriteLine("Start SMS Method call ");
             string URL = "https://app.notify.lk/api/v1/send";
             //string urlParameters = "?user_id=13005&api_key=erBfSX6dNq4cdkR2Oj5h&sender_id=NotifyDEMO&to=94" + mobile.TrimStart(new Char[] { '0' });
@@ -93,7 +88,6 @@ namespace Variedades
                 sqlCmd.Parameters.AddWithValue("@status", status);
                 sqlCmd.Prepare();
                 sqlCmd.ExecuteNonQuery();
-
             }
             catch (Exception err)
             {

@@ -43,6 +43,22 @@ namespace Variedades
 
         private void bt_save_Click(object sender, RoutedEventArgs e)
         {
+            
+            if (name.Text.Equals(String.Empty))
+            {
+                MessageBox.Show("Please provide customer name !");
+                return;
+            }
+            if (mobile.Text.Equals(String.Empty))
+            {
+                MessageBox.Show("Please provide customer mobile !");
+                return;
+            }
+            if (vc.Text.Equals(String.Empty))
+            {
+                MessageBox.Show("Please provide vc number !");
+                return;
+            }
             Customer customer = new Customer();
             customer.Name = name.Text;
             customer.Mobile = mobile.Text;

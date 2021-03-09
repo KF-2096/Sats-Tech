@@ -60,7 +60,6 @@ namespace Variedades
             VideoCon.IsChecked = false;
             TataSky.IsChecked = false;
             Airtel.IsChecked = false;
-            D2H.IsChecked = false;
             DishTv.IsChecked = false;
             TvLanka.IsChecked = false;
             SunDirect.IsChecked = false;

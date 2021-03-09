@@ -50,6 +50,12 @@ namespace Variedades
         {
             if ( editMode)
             {
+                if (Expiry_Date.SelectedDate == null)
+                {
+                    MessageBox.Show("Please selecte expiry date !");
+                    Expiry_Date.Focus();
+                    return;
+                }
                 updateExpiryDate();
                 return ;
             }
@@ -93,7 +99,8 @@ namespace Variedades
             }
             if (save)
             {
-                SaveReload(selectedCustomer.ID, CMB_ProviderList.Text, packageAmount, packageDesc.Text.ToString(), addOnAmount, AddOnDesc.Text.ToString(), extraCharge, ExtraChargeDesc.Text.ToString(), Expiry_Date.SelectedDate);
+                SaveReload(selectedCustomer.ID, CMB_ProviderList.Text, packageAmount, packageDesc.Text.ToString(), addOnAmount, 
+                    AddOnDesc.Text.ToString(), extraCharge, ExtraChargeDesc.Text.ToString(), Expiry_Date.SelectedDate,selectedCustomer.Mobile);
             }
         }
 
@@ -130,7 +137,7 @@ namespace Variedades
             }
         }
         private void SaveReload(int customerId, string provider, decimal packageAmount, string packageDesc, decimal addOnAmount, string addonDesc,
-            decimal extraCharge, string extraChargeDesc, DateTime? selectedDate)
+            decimal extraCharge, string extraChargeDesc, DateTime? selectedDate,string mobile)
         {
             MySqlConnection conn = DbConn.getDBConnection();
             try
@@ -153,8 +160,18 @@ namespace Variedades
                 sqlCmd.Parameters.AddWithValue("@extraChargeAmount", extraCharge);
                 sqlCmd.Prepare();
                 sqlCmd.ExecuteNonQuery();
+                sqlCmd.Dispose();
+
+                query = "insert into sms_queue (mobile_number,message,status) values(@mobile,@message,@status)";
+                sqlCmd = new MySqlCommand(query, conn);
+                sqlCmd.Parameters.AddWithValue("@mobile", mobile);
+                sqlCmd.Parameters.AddWithValue("@message", "Dear customer\nThank you for recharging through our system.\nPlease keep the receiver switched on\nHelp Line : 0768866972");
+                sqlCmd.Parameters.AddWithValue("@status", "PENDING");
+                sqlCmd.Prepare();
+                sqlCmd.ExecuteNonQuery();
+                sqlCmd.Dispose();
                 MessageBox.Show(" Saved Successfully ! ");
-                SendSMS();
+                //SendSMS();
                 this.Close();
             }
             catch (Exception err)
@@ -165,24 +182,6 @@ namespace Variedades
             {
                 conn.Close();
                 
-            }
-        }
-
-        private void SendSMS()
-        {
-            string URL = "https://app.notify.lk/api/v1/send";
-            string urlParameters = "?user_id=13005&api_key=erBfSX6dNq4cdkR2Oj5h&sender_id=NotifyDEMO&to=94"+selectedCustomer.Mobile.TrimStart(new Char[] { '0' });
-            urlParameters += "&message=Dear customer\nThank you for recharging through our system.\nPlease keep the receiver switched on\nHelp Line : 0768866972";
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(URL);
-            HttpResponseMessage response = client.GetAsync(urlParameters).Result;
-            
-            if( response.StatusCode==System.Net.HttpStatusCode.OK)
-            {
-                MessageBox.Show(" SMS Sent Successfully ! ");
-            }else
-            {
-                Console.WriteLine(response.Content);
             }
         }
 
