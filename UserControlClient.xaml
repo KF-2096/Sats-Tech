@@ -21,7 +21,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path='Name'}" IsReadOnly="True" Width="4*"/>
                     <DataGridTextColumn Header="Mobile" Binding="{Binding Path='Mobile'}" IsReadOnly="True" Width="4*"/>
-                    <DataGridTextColumn Header="SID" Binding="{Binding Path='SID'}" IsReadOnly="True" Width="4*"/>
+                    <DataGridTextColumn Header="VC Number" Binding="{Binding Path='VC'}" IsReadOnly="True" Width="4*"/>
 
                     <DataGridTemplateColumn Header="Actions" Width="6*">
                         <DataGridTemplateColumn.CellTemplate>

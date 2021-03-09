@@ -43,7 +43,7 @@ namespace Variedades
             selectedCustomer = customer;
             CustomerName.Text = customer.VC;
             CustomerName.IsEnabled = false;
-            GetLastProvider(selectedCustomer.SID);
+            GetLastProvider(selectedCustomer.ID);
         }
        
         private void bt_save_Click(object sender, RoutedEventArgs e)
@@ -266,14 +266,14 @@ namespace Variedades
                 conn.Close();
             }
         }
-        private void GetLastProvider(string sid)
+        private void GetLastProvider(int sid)
         {
             string lastProvider = "";
             MySqlConnection conn = DbConn.getDBConnection();
             try
             {
                 conn.Open();
-                String query = "select  provider from reload where sid=@sid order by tx_date desc limit 1";
+                String query = "select  provider from reload where customer_id=@sid order by tx_date desc limit 1";
                 MySqlCommand sqlCmd = new MySqlCommand(query, conn);
                 sqlCmd.Parameters.AddWithValue("@sid", sid);
                 sqlCmd.Prepare();

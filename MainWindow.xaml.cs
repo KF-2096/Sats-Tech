@@ -30,7 +30,7 @@ namespace Variedades
             InitializeComponent();
             LogProvider.SetCurrentLogProvider(new ConsoleLogProvider());
 
-            //_ = RunProgramRunExample();
+            _ = RunProgramRunExample();
 
         }
 

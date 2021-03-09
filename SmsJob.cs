@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -61,7 +62,9 @@ namespace Variedades
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(URL);
-                var urlParameters = (FormattableString)$"?user_id=13005&api_key=erBfSX6dNq4cdkR2Oj5h&sender_id=NotifyDEMO&to=94{smsItem.mobile.TrimStart(new Char[] { '0' })}&message={smsItem.message}";
+                var smsUserId = ConfigurationManager.AppSettings["SmsAccount"].Split(new char[] { ';' })[0];
+                var smsKey = ConfigurationManager.AppSettings["SmsAccount"].Split(new char[] { ';' })[1]; 
+                var urlParameters = (FormattableString)$"?user_id={smsUserId}&api_key={smsKey}&sender_id=NotifyDEMO&to=94{smsItem.mobile.TrimStart(new Char[] { '0' })}&message={smsItem.message}";
                 HttpResponseMessage response = client.GetAsync(urlParameters.ToString()).Result;
                 Console.WriteLine(response.RequestMessage.RequestUri);
                 Console.WriteLine(smsItem.mobile + " sms status" + response.StatusCode);
