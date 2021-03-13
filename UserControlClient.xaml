@@ -19,6 +19,7 @@
             <Button x:Name="bt_new" Content="New" HorizontalAlignment="Left" Margin="473,30,0,0" Grid.Row="0" VerticalAlignment="Top" Width="100" Height="30" Click="Bt_new_Click"/>
             <DataGrid x:Name="customer_grid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="false">
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path='ID'}" IsReadOnly="True" Width="4*"/>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path='Name'}" IsReadOnly="True" Width="4*"/>
                     <DataGridTextColumn Header="Mobile" Binding="{Binding Path='Mobile'}" IsReadOnly="True" Width="4*"/>
                     <DataGridTextColumn Header="VC Number" Binding="{Binding Path='VC'}" IsReadOnly="True" Width="4*"/>
@@ -28,7 +29,12 @@
                             <DataTemplate >
                                  
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button Name="bt_reload"  IsEnabled="True" Click="Bt_reload_Click">
+                               
+                                <Button Name="bt_history" IsEnabled="True" Click="Bt_history_Click">
+                                    <fa5:SvgAwesome Foreground="Black" Margin="0,0,0,0" Width="35px" Icon="Regular_CalendarPlus" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                </Button>
+                                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <Button Name="bt_reload"  IsEnabled="True" Click="Bt_reload_Click">
                                         <fa5:SvgAwesome Foreground="Black" Margin="0,0,0,0" Height="30px" Width="35px" Icon="Solid_Rss" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                       
                                     </Button>

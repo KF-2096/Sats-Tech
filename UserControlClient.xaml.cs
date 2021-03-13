@@ -27,35 +27,53 @@ namespace Variedades
         {
             InitializeComponent();
             
-            customer_grid.ItemsSource = loadCustomerGrid();
+            customer_grid.ItemsSource = LoadCustomerGrid();
 
         }
         public void Bt_search_Click(object sender, RoutedEventArgs e)
         {
             MySqlConnection conn = DbConn.getDBConnection();
-            conn.Open();
-            String query = "select  name, mobile, vc_number, sid from customer where name like @searchTxt or mobile like @searchTxt or vc_number like @searchTxt or sid like @searchTxt limit 10";
-
-            MySqlCommand sqlCmd = new MySqlCommand(query, conn);
-           
-            sqlCmd.Parameters.AddWithValue("@searchTxt", "%" + customerSearch.Text + "%");
-            sqlCmd.Prepare();
-            MySqlDataReader rdr = sqlCmd.ExecuteReader();
             List<Customer> customers = new List<Customer>();
-
-            while (rdr.Read())
+            try
             {
-                Customer customer = new Customer();
-                customer.SID = rdr.GetString(3);
-                customer.Name = rdr.GetString(0);
-                customer.Mobile = rdr.GetString(1);
-                customer.VC = rdr.GetString(2);
-                customers.Add(customer);
-            }
 
-            conn.Close();
-            customer_grid.ItemsSource = customers;
+                conn.Open();
+                String query = "select  name, mobile, vc_number, sid from customer where name like @searchTxt or mobile like @searchTxt or vc_number like @searchTxt or sid like @searchTxt limit 10";
+
+                MySqlCommand sqlCmd = new MySqlCommand(query, conn);
+
+                sqlCmd.Parameters.AddWithValue("@searchTxt", "%" + customerSearch.Text + "%");
+                sqlCmd.Prepare();
+                MySqlDataReader rdr = sqlCmd.ExecuteReader();
+
+
+                while (rdr.Read())
+                {
+                    Customer customer = new Customer();
+                    customer.SID = rdr.GetString(3);
+                    customer.Name = rdr.GetString(0);
+                    customer.Mobile = rdr.GetString(1);
+                    customer.VC = rdr.GetString(2);
+                    customers.Add(customer);
+                }
+
+                rdr.Dispose();
+                sqlCmd.Dispose();
+                customer_grid.ItemsSource = customers;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Search " + err.Message);
+            }
+            finally 
+            {
+                conn.Close();
+            }
            
+           if (customers.Count == 0)
+            {
+                Bt_new_Click(sender, e);
+            }
         }
         
         public void Bt_reload_Click(object sender, RoutedEventArgs e)
@@ -74,7 +92,14 @@ namespace Variedades
             ue.ShowDialog();
 
         }
+        public void Bt_history_Click(object sender, RoutedEventArgs e)
+        {
+            Customer selectedCustomer = (Customer)customer_grid.SelectedItem;
+            ReloadHistoryView rhv = new ReloadHistoryView(selectedCustomer);
+            rhv.ShowDialog();
 
+
+        }
         private void Bt_new_Click(object sender, RoutedEventArgs e)
         {
             UserEdit ue = new UserEdit();
@@ -82,7 +107,7 @@ namespace Variedades
             ue.ShowDialog();
         }
         
-        private List<Customer> loadCustomerGrid()
+        private List<Customer> LoadCustomerGrid()
         {
             MySqlConnection conn = DbConn.getDBConnection();
             List<Customer> customers = new List<Customer>();
@@ -105,6 +130,8 @@ namespace Variedades
                     customer.SID = rdr.GetString(4);
                     customers.Add(customer);
                 }
+                sqlCmd.Dispose();
+                rdr.Dispose();
             }
             catch (Exception err)
             {
@@ -114,7 +141,7 @@ namespace Variedades
             {
                 conn.Close();
             }
-           
+             
             return customers;
         }
 

@@ -20,7 +20,8 @@ namespace Variedades
     /// </summary>
     public partial class UserEdit : Window
     {
-        public Customer editCustomer = null;
+        private Customer editCustomer = null;
+        private bool editMode = false;
         public UserEdit()
         {
             InitializeComponent();
@@ -33,16 +34,23 @@ namespace Variedades
         public UserEdit(Customer cus)
         {
             InitializeComponent();
-
+            editCustomer = cus;
             name.Text = cus?.Name;
             mobile.Text = cus?.Mobile;
             vc.Text = cus?.VC;
             sid.Text = cus?.SID;
             sid.IsEnabled = false;
+            editMode=true;
         }
 
         private void bt_save_Click(object sender, RoutedEventArgs e)
         {
+            
+            if (editMode)
+            {
+                UpdateCustomer();
+                return;
+            }
             
             if (name.Text.Equals(String.Empty))
             {
@@ -65,9 +73,9 @@ namespace Variedades
             customer.VC = vc.Text;
             customer.SID = sid.Text;
             MySqlConnection conn = DbConn.getDBConnection();
-            try { 
+            try {
                 conn.Open();
-                String query = "insert into customer (name, mobile, vc_number, sid) values(@name,@mobile,@vc,@sid) ON DUPLICATE KEY UPDATE name=@name,vc_number=@vc, mobile=@mobile ";
+                String query = "insert into customer (name, mobile, vc_number, sid) values(@name,@mobile,@vc,@sid) ";
                 MySqlCommand sqlCmd = new MySqlCommand(query, conn);
                 
                 sqlCmd.Parameters.AddWithValue("@name", name.Text);
@@ -76,8 +84,12 @@ namespace Variedades
                 sqlCmd.Parameters.AddWithValue("@sid", sid.Text);
                 sqlCmd.Prepare();
                 sqlCmd.ExecuteNonQuery();
-                conn.Close();
+                sqlCmd.Dispose(); 
                 MessageBox.Show(" Saved Successfully ! ");
+                
+                ReloadForm rf = new ReloadForm(vc.Text);
+                rf.ShowDialog();
+                
                 this.Close();
             }
             catch (Exception err)
@@ -88,7 +100,6 @@ namespace Variedades
             {
                 conn.Close();
             }
-
         }
 
         private void bt_reset_Click(object sender, RoutedEventArgs e)
@@ -97,6 +108,32 @@ namespace Variedades
             mobile.Text = editCustomer?.Mobile;
             vc.Text = editCustomer?.VC;
             sid.Text = editCustomer?.SID;
+        }
+        private void UpdateCustomer()
+        {
+            MySqlConnection conn = DbConn.getDBConnection();
+            try
+            {
+                conn.Open();
+                String query = "update customer set name=@name,mobile=@mobile) where vc_number=@vc ";
+                MySqlCommand sqlCmd = new MySqlCommand(query, conn);
+                sqlCmd.Parameters.AddWithValue("@name", name.Text);
+                sqlCmd.Parameters.AddWithValue("@mobile", mobile.Text);
+                sqlCmd.Parameters.AddWithValue("@vc", vc.Text);
+                sqlCmd.Prepare();
+                sqlCmd.ExecuteNonQuery();
+                sqlCmd.Dispose();
+                MessageBox.Show(" Updated Successfully ! ");
+            }
+            catch (Exception err) 
+            {
+                MessageBox.Show(err.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
         }
     }
 }

@@ -1,0 +1,29 @@
+﻿<Window x:Class="Variedades.ReloadHistoryView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Variedades"
+        mc:Ignorable="d"
+        xmlns:fa5="http://schemas.fontawesome.com/icons/"
+        Title="ReloadHistoryView" Height="450" Width="800">
+    <Grid Height="450" Width="800">
+
+        <TextBlock FontSize="20"  x:Name="txtBlk_customer" Text="Customer" TextAlignment="Center" HorizontalAlignment="Center" Width="790"   Grid.Row="0" Margin="0,0,0,334"/>
+        
+        <DataGrid x:Name="reloadHistory_grid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"    AutoGenerateColumns="False" CanUserAddRows="false" Margin="0,121,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Provider" Binding="{Binding Path='provider'}" IsReadOnly="True" Width="4*"/>
+
+                <DataGridTextColumn Header="Date" Binding="{Binding Path='txDate'}" IsReadOnly="True" Width="4*"/>
+                <DataGridTextColumn Header="Package" Binding="{Binding Path='packDesc'}" IsReadOnly="True" Width="4*"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Path='packAmount'}" IsReadOnly="True" Width="4*"/>
+                <DataGridTextColumn Header="Add-on" Binding="{Binding Path='addOnDesc'}" IsReadOnly="True" Width="4*"/>
+                <DataGridTextColumn Header="Add-on Charge" Binding="{Binding Path='addOnAmount'}" IsReadOnly="True" Width="4*"/>
+                <DataGridTextColumn Header="Extras" Binding="{Binding Path='extrachargeDesc'}" IsReadOnly="True" Width="4*"/>
+                <DataGridTextColumn Header="Extra Charge" Binding="{Binding Path='extrachargeAmount'}" IsReadOnly="True" Width="4*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

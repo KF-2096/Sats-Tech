@@ -10,15 +10,16 @@ namespace Variedades
 {
     public static class DbConn
     {
-        static MySqlConnection databaseConnection = null;
+        //static MySqlConnection databaseConnection = null;
         public static MySqlConnection getDBConnection()
         {
-            if (databaseConnection == null)
-            {
+            //if (databaseConnection == null)
+            //{
                 string connectionString = ConfigurationManager.ConnectionStrings["satsTechDbCon"].ConnectionString;
-                databaseConnection = new MySqlConnection(connectionString);
-            }
-            return databaseConnection;
+                return  new MySqlConnection(connectionString);
+           // }
+           
+            //return databaseConnection;
         }
     }
 }

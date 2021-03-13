@@ -80,6 +80,7 @@ namespace Variedades
                 sqlCmd.Parameters.AddWithValue("@providers", providers);
                 sqlCmd.ExecuteNonQuery();
                 MessageBox.Show("SMS sent !");
+                sqlCmd.Dispose();
             }
             catch (Exception err)
             {

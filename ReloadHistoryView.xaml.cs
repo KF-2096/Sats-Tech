@@ -11,53 +11,42 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Variedades
 {
     /// <summary>
-    /// Interaction logic for RechargeClient.xaml
+    /// Interaction logic for ReloadHistoryView.xaml
     /// </summary>
-    public partial class RechargeClient : UserControl
+    public partial class ReloadHistoryView : Window
     {
-        public RechargeClient()
+        private Customer selectedCustomer;
+        public ReloadHistoryView(Customer customer)
         {
             InitializeComponent();
-            recharge_grid.ItemsSource = LoadRechargeGrid("");
+            selectedCustomer = customer;
+            reloadHistory_grid.ItemsSource = LoadReloadHistory();
+            txtBlk_customer.Text = "Customer : " + selectedCustomer.VC;
         }
-         
-        public void Bt_search_Click(object sender, RoutedEventArgs e) 
-        {
-            
-            String queryStr = " where customer.vc_number like '%"+ reloadSearch.Text + "%' or customer.sid like '%"+reloadSearch.Text + "%'";
-            recharge_grid.ItemsSource = LoadRechargeGrid(queryStr);
-        }
-        public void Bt_edit_Click(object sender, RoutedEventArgs e)
-        {
-            Reload selectedReload = (Reload)recharge_grid.SelectedItem;
-            ReloadForm rl = new ReloadForm(selectedReload.ID);
 
-            rl.ShowDialog();
-        }
-        private List<Reload> LoadRechargeGrid(String where)
+        private List<Reload> LoadReloadHistory()
         {
             MySqlConnection conn = DbConn.getDBConnection();
             List<Reload> reloads = new List<Reload>();
-            
             try
             {
-
                 conn.Open();
-                String query = " select  reload.id, customer.vc_number, tx_date, expiry_date, provider, total, pack_desc, coalesce(pack_amount, 0),  "+
+                String query = " select  reload.id, customer.vc_number, tx_date, expiry_date, provider, total, pack_desc, coalesce(pack_amount, 0),  " +
                       " addOn_desc, coalesce(addOn_amount, 0),     " +
                      " extracharge_desc, coalesce(extracharge_amount, 0) " +
-                    " from reload join customer on reload.customer_id = customer.id " + where +
+                    " from reload join customer on reload.customer_id = customer.id  where customer.id=@id"+
                     " order by tx_date  desc ";
                 MySqlCommand sqlCmd = new MySqlCommand(query, conn);
+                sqlCmd.Parameters.AddWithValue("@id", selectedCustomer.ID);
                 sqlCmd.Prepare();
+
                 MySqlDataReader rdr = sqlCmd.ExecuteReader();
-                
+
                 while (rdr.Read())
                 {
                     Reload reload = new Reload();
@@ -78,15 +67,15 @@ namespace Variedades
                 sqlCmd.Dispose();
                 rdr.Close();
             }
-            catch (Exception err) 
+            catch (Exception err)
             {
                 MessageBox.Show(err.Message);
             }
             finally
             {
-                conn.Dispose();
+                conn.Close();
             }
             return reloads;
-        } 
+        }
     }
 }

@@ -36,6 +36,8 @@ namespace Variedades
                     newSms.status = rdr.GetString(3);
                     sms.Add(newSms);
                 }
+                rdr.Dispose();
+                sqlCmd.Dispose();
             }
             catch (Exception err)
             {
@@ -88,6 +90,7 @@ namespace Variedades
                 sqlCmd.Parameters.AddWithValue("@status", status);
                 sqlCmd.Prepare();
                 sqlCmd.ExecuteNonQuery();
+                sqlCmd.Dispose();
             }
             catch (Exception err)
             {

@@ -33,6 +33,20 @@ namespace Variedades
 
         }
         
+        public ReloadForm (String VcNumber)
+        {
+            InitializeComponent();
+            var ProviderList = new List<String>(ConfigurationManager.AppSettings["ProviderList"].Split(new char[] { ';' }));
+
+            CMB_ProviderList.ItemsSource = ProviderList;
+
+            selectedCustomer = GetCustomerFromVC(VcNumber);
+            CustomerName.Text = selectedCustomer.VC;
+            CustomerName.IsEnabled = false;
+            GetLastProvider(selectedCustomer.ID);
+
+        }
+
         public ReloadForm(Customer customer)
         {
             
@@ -123,8 +137,7 @@ namespace Variedades
                 sqlCmd.ExecuteNonQuery();
                 tr.Commit();
                 MessageBox.Show(" Updated Successfully ! ");
-                //SendSMS();
-                conn.Close();
+                sqlCmd.Dispose();
                 this.Close();
             }
             catch (Exception err)
@@ -142,8 +155,8 @@ namespace Variedades
             MySqlConnection conn = DbConn.getDBConnection();
             try
             {
-                conn.Open();
 
+                conn.Open();
                 String query = "INSERT INTO reload (customer_id,tx_date,expiry_date,provider,total, pack_desc, pack_amount, addOn_desc, addOn_amount, extracharge_desc, extracharge_amount) " +
                     "values(@customer,@txDate,@expiry,@provider,@total,@packageDesc,@packageAmount,@addOnDesc,@addOnAmount,@extraChargeDesc,@extraChargeAmount)";
                 MySqlCommand sqlCmd = new MySqlCommand(query, conn);
@@ -231,6 +244,9 @@ namespace Variedades
                     customer.VC = rdr.GetString(15);
 
                 }
+                sqlCmd.Dispose();
+                rdr.Dispose();
+
                 selectedReload = reload;
 
                 selectedCustomer = customer;
@@ -265,6 +281,42 @@ namespace Variedades
                 conn.Close();
             }
         }
+
+        private Customer GetCustomerFromVC(string vc)
+        {
+            Customer customer = new Customer();
+            MySqlConnection conn = DbConn.getDBConnection();
+            try
+            {
+                conn.Open();
+                String query = " select id, name, mobile, sid, vc_number from customer where vc_number=@vc ";
+                MySqlCommand sqlCmd = new MySqlCommand(query, conn);
+                sqlCmd.Parameters.AddWithValue("@vc", vc);
+                sqlCmd.Prepare();
+                MySqlDataReader rdr = sqlCmd.ExecuteReader();
+                
+                 
+                while (rdr.Read())
+                {
+                    customer.ID = rdr.GetInt32(0);
+                    customer.Name = rdr.GetString(1);
+                    customer.Mobile = rdr.GetString(2);
+                    customer.SID = rdr.GetString(3);
+                    customer.VC = rdr.GetString(4);
+                }
+                sqlCmd.Dispose();
+                return customer;
+
+            }catch(Exception err)
+            {
+                MessageBox.Show("GetCustomerFromVC("+vc+") "+ err.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return null;
+        }
         private void GetLastProvider(int sid)
         {
             string lastProvider = "";
@@ -281,10 +333,12 @@ namespace Variedades
                 {
                     lastProvider = rdr.GetString(0);
                 }
+                sqlCmd.Dispose();
+                rdr.Dispose();
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message);
+                MessageBox.Show("GetLastProvider(" + sid + ") " + err.Message);
             }
             finally
             {

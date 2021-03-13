@@ -32,7 +32,7 @@ namespace Variedades
                 MySqlCommand sqlCmd = new MySqlCommand(query, conn);
                 sqlCmd.Prepare();
                 sqlCmd.ExecuteNonQuery();
-
+                sqlCmd.Dispose();
             }
             catch(Exception err)
             {

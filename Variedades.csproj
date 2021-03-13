@@ -196,6 +196,9 @@
     <Compile Include="ReloadForm.xaml.cs">
       <DependentUpon>ReloadForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReloadHistoryView.xaml.cs">
+      <DependentUpon>ReloadHistoryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReminderJob.cs" />
     <Compile Include="SmsControll.xaml.cs">
       <DependentUpon>SmsControll.xaml</DependentUpon>
@@ -229,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReloadForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReloadHistoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
