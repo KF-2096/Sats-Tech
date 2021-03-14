@@ -38,7 +38,7 @@ namespace Variedades
             {
 
                 conn.Open();
-                String query = "select  name, mobile, vc_number, sid from customer where name like @searchTxt or mobile like @searchTxt or vc_number like @searchTxt or sid like @searchTxt limit 10";
+                String query = "select  id,name, mobile, vc_number, sid from customer where name like @searchTxt or mobile like @searchTxt or vc_number like @searchTxt or sid like @searchTxt limit 10";
 
                 MySqlCommand sqlCmd = new MySqlCommand(query, conn);
 
@@ -50,10 +50,11 @@ namespace Variedades
                 while (rdr.Read())
                 {
                     Customer customer = new Customer();
-                    customer.SID = rdr.GetString(3);
-                    customer.Name = rdr.GetString(0);
-                    customer.Mobile = rdr.GetString(1);
-                    customer.VC = rdr.GetString(2);
+                    customer.ID = rdr.GetInt32(0);
+                    customer.Name = rdr.GetString(1);
+                    customer.Mobile = rdr.GetString(2);
+                    customer.VC = rdr.GetString(3);
+                    customer.SID = rdr.GetString(4);
                     customers.Add(customer);
                 }
 

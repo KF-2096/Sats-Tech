@@ -9,7 +9,7 @@ namespace Variedades
     public class Reload
     {
         public int ID { get; set; }
-        public int customer { get; set; }
+        public string customer { get; set; }
         public DateTime txDate { get; set; }
         public string expDate { get; set; }
         public string provider { get; set; }

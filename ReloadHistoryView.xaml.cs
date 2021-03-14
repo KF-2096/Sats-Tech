@@ -51,7 +51,7 @@ namespace Variedades
                 {
                     Reload reload = new Reload();
                     reload.ID = rdr.GetInt32(0);
-                    reload.customer = rdr.GetInt32(1);
+                    reload.customer = rdr.GetString(1);
                     reload.txDate = rdr.GetDateTime(2);
                     reload.expDate = rdr.IsDBNull(3) ? null : rdr.GetString(3);
                     reload.provider = rdr.GetString(4);

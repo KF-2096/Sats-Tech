@@ -84,6 +84,7 @@ namespace Variedades
                 MessageBox.Show("Please select Provider ! ");
                 save = false;
             }
+            
             Decimal packageAmount;
 
             if (!Decimal.TryParse(PackagePrice.Text, out packageAmount))
@@ -91,6 +92,13 @@ namespace Variedades
                 MessageBox.Show("Package Amount Invalid ! ");
                 save = false;
             }
+
+            if ((packageAmount > 0) && (string.IsNullOrEmpty(packageDesc.Text)))
+            {
+                MessageBox.Show("Package Description Invalid ! ");
+                save = false;
+            }
+
             Decimal addOnAmount;
 
             if (!Decimal.TryParse(AddOnPrice.Text, out addOnAmount))
@@ -98,6 +106,13 @@ namespace Variedades
                 MessageBox.Show("Add-On Amount Invalid ! ");
                 save = false;
             }
+
+            if ((addOnAmount > 0) && (string.IsNullOrEmpty(AddOnDesc.Text)))
+            {
+                MessageBox.Show("Add-On Description Invalid ! ");
+                save = false;
+            }
+
             Decimal extraCharge;
 
             if (!Decimal.TryParse(ExtraChargeAmount.Text, out extraCharge))
@@ -105,7 +120,11 @@ namespace Variedades
                 MessageBox.Show("ExtraCharge Amount Invalid ! ");
                 save = false;
             }
-
+            if ((extraCharge > 0) && (string.IsNullOrEmpty(ExtraChargeDesc.Text)))
+            {
+                MessageBox.Show("Add-On Description Invalid ! ");
+                save = false;
+            }
             if ((packageAmount+ addOnAmount+ extraCharge)<1)
             {
                 MessageBox.Show("Invalid Total ! ");
@@ -227,7 +246,7 @@ namespace Variedades
                 while (rdr.Read())
                 {
                     reload.ID = rdr.GetInt32(0);
-                    reload.customer = rdr.GetInt32(1);
+                    reload.customer = rdr.GetString(1);
                     reload.txDate = rdr.GetDateTime(2);
                     reload.expDate = rdr.IsDBNull(3) ? null : rdr.GetString(3);
                     reload.provider = rdr.GetString(4);

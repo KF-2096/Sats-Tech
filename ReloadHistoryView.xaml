@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Variedades"
         mc:Ignorable="d"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
-        Title="ReloadHistoryView" Height="450" Width="800">
+        Title="ReloadHistoryView" Height="530" Width="860">
+    
     <Grid Height="450" Width="800">
 
         <TextBlock FontSize="20"  x:Name="txtBlk_customer" Text="Customer" TextAlignment="Center" HorizontalAlignment="Center" Width="790"   Grid.Row="0" Margin="0,0,0,334"/>
