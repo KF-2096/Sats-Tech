@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="#333238">
-            <TextBlock VerticalAlignment="Center" FontSize="20" Foreground="White" HorizontalAlignment="Center" TextAlignment="Center" Text="SatsTech"/>
+            <TextBlock VerticalAlignment="Center" FontSize="20" Foreground="White" HorizontalAlignment="Center" TextAlignment="Center"><Run Text="Sats"/><Run Text=" "/><Run Text="Tech"/></TextBlock>
         </Grid>
         <Grid HorizontalAlignment="Center" Grid.Row="1">
             <StackPanel Margin="0,40,0,0">

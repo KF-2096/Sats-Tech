@@ -20,7 +20,8 @@
                 <DataGridTextColumn Header="Customer" Binding="{Binding Path='customer'}" IsReadOnly="True" Width="4*"/>
                 <DataGridTextColumn Header="Provider" Binding="{Binding Path='provider'}" IsReadOnly="True" Width="4*"/>
 
-                <DataGridTextColumn Header="Date" Binding="{Binding Path='txDate'}" IsReadOnly="True" Width="4*"/>
+                <DataGridTextColumn Header="Reload Date" Binding="{Binding Path='txDate'}" IsReadOnly="True" Width="4*"/>
+                <DataGridTextColumn Header="Expriy Date" Binding="{Binding Path='expDate'}" IsReadOnly="True" Width="4*"/>
                 <DataGridTextColumn Header="Total" Binding="{Binding Path='total'}" IsReadOnly="True" Width="4*"/>
 
                 <DataGridTemplateColumn Header="Actions" Width="6*">

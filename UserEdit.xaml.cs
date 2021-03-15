@@ -115,7 +115,7 @@ namespace Variedades
             try
             {
                 conn.Open();
-                String query = "update customer set name=@name,mobile=@mobile) where vc_number=@vc ";
+                String query = "update customer set name=@name,mobile=@mobile where vc_number=@vc ";
                 MySqlCommand sqlCmd = new MySqlCommand(query, conn);
                 sqlCmd.Parameters.AddWithValue("@name", name.Text);
                 sqlCmd.Parameters.AddWithValue("@mobile", mobile.Text);

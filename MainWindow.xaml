@@ -67,7 +67,7 @@
                 <ListViewItem x:Name="ItemReload" Height="60">
                     <StackPanel Orientation="Horizontal">
                         <fa5:SvgAwesome Foreground="white" Margin="10,0,0,0" Width="20px" Icon="Solid_Rss" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <TextBlock Text="Reload" VerticalAlignment="Center"  Margin="20 10"/>
+                        <TextBlock Text="Date Change" VerticalAlignment="Center"  Margin="20 10"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="ItemSMS" Height="60">
@@ -96,7 +96,7 @@
                     <fa5:SvgAwesome Foreground="Black" Margin="0,0,0,0" Width="20px" Icon="Solid_Bars" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Button>
                 <!--Logo title-->
-                <TextBlock HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center" FontSize="22">Stats Tech Billing</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center" FontSize="22">Sats Tech Billing</TextBlock>
                 <!--Notification Image Button-->
 
                 <extToolkit:DropDownButton FlowDirection="RightToLeft" Background="White" Width="50px" Height="40px" Padding="8,8,8,8" Margin="5,5,70,5" HorizontalAlignment="Right" >

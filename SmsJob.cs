@@ -54,7 +54,7 @@ namespace Variedades
             Console.WriteLine("Start SMS Method call ");
             string URL = "https://app.notify.lk/api/v1/send";
             //string urlParameters = "?user_id=13005&api_key=erBfSX6dNq4cdkR2Oj5h&sender_id=NotifyDEMO&to=94" + mobile.TrimStart(new Char[] { '0' });
-            
+            WriteLogFile.WriteLog(String.Format("{0} @ {1}", DateTime.Now, " SMS LIST COUNT : " + sms.Count()));
             foreach (var smsItem in sms)
             {
                 HttpClient client = new HttpClient();
@@ -63,18 +63,16 @@ namespace Variedades
                 var smsKey = ConfigurationManager.AppSettings["SmsAccount"].Split(new char[] { ';' })[1]; 
                 var urlParameters = (FormattableString)$"?user_id={smsUserId}&api_key={smsKey}&sender_id=NotifyDEMO&to=94{smsItem.mobile.TrimStart(new Char[] { '0' })}&message={smsItem.message}";
                 HttpResponseMessage response = client.GetAsync(urlParameters.ToString()).Result;
-                Console.WriteLine(response.RequestMessage.RequestUri);
-                Console.WriteLine(smsItem.mobile + " sms status" + response.StatusCode);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     UpdateSMSStatus(smsItem.id, "SENT");
                 }
                 else
                 {
+                    WriteLogFile.WriteLog(String.Format("{0} @ {1}", DateTime.Now, " SMS ERROR : "+ response.ReasonPhrase));
                     UpdateSMSStatus(smsItem.id, "FAILED");
                 }
             }
-            Console.WriteLine("Done SMS Method call ");
         }
 
         private void UpdateSMSStatus(int id, string status)
@@ -91,16 +89,18 @@ namespace Variedades
                 sqlCmd.Prepare();
                 sqlCmd.ExecuteNonQuery();
                 sqlCmd.Dispose();
+                WriteLogFile.WriteLog(String.Format("{0} @ {1}", DateTime.Now, " UpdateSMSStatus : Done"));
             }
             catch (Exception err)
             {
                 Console.WriteLine(err);
+                WriteLogFile.WriteLog(String.Format("{0} @ {1}", DateTime.Now, " UpdateSMSStatus : ERROR "+err.ToString()));
             }
             finally
             {
                 conn.Close();
             }
-            Console.WriteLine("Done Updating SMS status ");
+            
         }
         public class SMS
         {
