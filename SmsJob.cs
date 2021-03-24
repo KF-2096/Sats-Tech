@@ -63,13 +63,16 @@ namespace Variedades
                 var smsKey = ConfigurationManager.AppSettings["SmsAccount"].Split(new char[] { ';' })[1]; 
                 var urlParameters = (FormattableString)$"?user_id={smsUserId}&api_key={smsKey}&sender_id=NotifyDEMO&to=94{smsItem.mobile.TrimStart(new Char[] { '0' })}&message={smsItem.message}";
                 HttpResponseMessage response = client.GetAsync(urlParameters.ToString()).Result;
+
+                
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     UpdateSMSStatus(smsItem.id, "SENT");
                 }
                 else
                 {
-                    WriteLogFile.WriteLog(String.Format("{0} @ {1}", DateTime.Now, " SMS ERROR : "+ response.ReasonPhrase));
+                    WriteLogFile.WriteLog(String.Format("{0} @ {1}", DateTime.Now, " SMS REQUEST : " + response.RequestMessage.RequestUri.ToString()));
+                    WriteLogFile.WriteLog(String.Format("{0} @ {1}", DateTime.Now, " SMS ERROR : "+ response.Content.ToString()));
                     UpdateSMSStatus(smsItem.id, "FAILED");
                 }
             }

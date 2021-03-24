@@ -75,9 +75,11 @@ namespace Variedades
                 String query = " insert into sms_queue (mobile_number,message,status) select mobile,@msg as message, 'PENDING' " +
 "from customer where id in(select customer_id from reload where  FIND_IN_SET(provider, @providers))  ";
                 MySqlCommand sqlCmd = new MySqlCommand(query, conn);
-                sqlCmd.Prepare();
+               
                 sqlCmd.Parameters.AddWithValue("@msg", msg);
                 sqlCmd.Parameters.AddWithValue("@providers", providers);
+
+                sqlCmd.Prepare();
                 sqlCmd.ExecuteNonQuery();
                 MessageBox.Show("SMS sent !");
                 sqlCmd.Dispose();

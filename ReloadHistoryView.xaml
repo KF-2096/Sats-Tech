@@ -23,6 +23,7 @@
                 <DataGridTextColumn Header="Add-on Charge" Binding="{Binding Path='addOnAmount'}" IsReadOnly="True" Width="4*"/>
                 <DataGridTextColumn Header="Extras" Binding="{Binding Path='extrachargeDesc'}" IsReadOnly="True" Width="4*"/>
                 <DataGridTextColumn Header="Extra Charge" Binding="{Binding Path='extrachargeAmount'}" IsReadOnly="True" Width="4*"/>
+                <DataGridTextColumn Header="Expiry Date" Binding="{Binding Path='expDate'}" IsReadOnly="True" Width="4*"/>
             </DataGrid.Columns>
         </DataGrid>
 
