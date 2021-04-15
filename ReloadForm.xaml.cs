@@ -204,6 +204,23 @@ namespace Variedades
                 sqlCmd.Dispose();
                 MessageBox.Show(" Saved Successfully ! ");
                 //SendSMS();
+
+                
+                Bill bill = new Bill();
+                bill.AddOnAmt = (float) addOnAmount ;
+                bill.AddOnDesc = addonDesc;
+                bill.BillAmount = (float) (packageAmount + addOnAmount + extraCharge);
+                bill.BillDate = DateTime.Now;
+                bill.BillNumber = 0;
+                bill.CustomerMobile = selectedCustomer.Mobile;
+                bill.CustomerSID = selectedCustomer.SID;
+                bill.CustomerType = provider;
+                bill.ExtraChargeAmt = (float) extraCharge;
+                bill.ExtraChargeDesc = extraChargeDesc;
+                bill.PackageAmt = (float) packageAmount;
+                bill.PackageDesc = packageDesc;
+                RdlcPrint rdlcPrint = new RdlcPrint();
+                rdlcPrint.Run(bill);
                 this.Close();
             }
             catch (Exception err)
