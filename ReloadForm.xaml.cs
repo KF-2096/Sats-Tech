@@ -197,21 +197,29 @@ namespace Variedades
                 query = "insert into sms_queue (mobile_number,message,status) values(@mobile,@message,@status)";
                 sqlCmd = new MySqlCommand(query, conn);
                 sqlCmd.Parameters.AddWithValue("@mobile", mobile);
-                sqlCmd.Parameters.AddWithValue("@message", "Dear customer\nThank you for recharging through our system.\nPlease keep the receiver switched on\nHelp Line : 0768866972");
+                sqlCmd.Parameters.AddWithValue("@message", "Dear customer\nThank you for recharging through our shop.\nPlease keep the setup box  switched on\nHelp Line : 0768866972");
                 sqlCmd.Parameters.AddWithValue("@status", "PENDING");
                 sqlCmd.Prepare();
                 sqlCmd.ExecuteNonQuery();
                 sqlCmd.Dispose();
-                MessageBox.Show(" Saved Successfully ! ");
+               
                 //SendSMS();
+                query = "select max(id) from reload";
+                sqlCmd = new MySqlCommand(query, conn);
+                sqlCmd.Prepare();
+                MySqlDataReader rdr = sqlCmd.ExecuteReader();
+                int invNumber = 0;
+                while (rdr.Read())
+                {
+                    invNumber = rdr.GetInt32(0);
+                }
 
-                
                 Bill bill = new Bill();
+                bill.BillNumber = invNumber;
                 bill.AddOnAmt = (float) addOnAmount ;
                 bill.AddOnDesc = addonDesc;
                 bill.BillAmount = (float) (packageAmount + addOnAmount + extraCharge);
                 bill.BillDate = DateTime.Now;
-                bill.BillNumber = 0;
                 bill.CustomerMobile = selectedCustomer.Mobile;
                 bill.CustomerSID = selectedCustomer.SID;
                 bill.CustomerType = provider;
@@ -221,6 +229,7 @@ namespace Variedades
                 bill.PackageDesc = packageDesc;
                 RdlcPrint rdlcPrint = new RdlcPrint();
                 rdlcPrint.Run(bill);
+                MessageBox.Show(" Saved Successfully ! ");
                 this.Close();
             }
             catch (Exception err)

@@ -46,10 +46,10 @@
                     </Style>
                 </ListView.ItemContainerStyle>
 
-                <ListViewItem x:Name="ItemProducts" Height="60">
+                <ListViewItem x:Name="ItemDashboard" Height="60">
                     <StackPanel Orientation="Horizontal">
                         <fa5:SvgAwesome Foreground="white" Margin="10,0,0,0" Width="20px" Icon="Solid_BoxOpen" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <TextBlock Text="Products" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 10"/>
+                        <TextBlock Text="Home" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 10"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="ItemClients" Height="60">

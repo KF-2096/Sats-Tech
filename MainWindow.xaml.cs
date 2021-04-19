@@ -29,9 +29,17 @@ namespace Variedades
         {
             InitializeComponent();
             LogProvider.SetCurrentLogProvider(new ConsoleLogProvider());
-
+            LoadHomeScreen();
             _ = RunProgramRunExample();
 
+        }
+
+        private void LoadHomeScreen()
+        {
+            UserControl usc = null;
+            ContentMain.Children.Clear();
+            usc = new DashBoardControl();
+            ContentMain.Children.Add(usc);
         }
 
         //Hide and show sidebar menu
@@ -86,6 +94,9 @@ namespace Variedades
                     usc = new SmsControll();
                     ContentMain.Children.Add(usc);
                     break;
+                case "ItemDashboard":
+                    LoadHomeScreen();
+                    break; 
                 default:
                     break;
             }

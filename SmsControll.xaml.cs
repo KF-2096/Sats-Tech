@@ -32,20 +32,26 @@ namespace Variedades
         {
             string content = (sender as CheckBox).Content.ToString();
             selectedProviders.Add(content);
+            mobile_number.Text = "";
+            mobile_number.IsEnabled = false;
         }
         public void checkBox_Unchecked (object sender, RoutedEventArgs e) 
         {
             string content = (sender as CheckBox).Content.ToString();
             selectedProviders.Remove(content);
+            mobile_number.Text = "";
+            mobile_number.IsEnabled = true;
         }
         public void bt_save_Click(object sender, RoutedEventArgs e)
         {
-            selectedProviders.ForEach(Console.WriteLine);
-            if (selectedProviders.Count<1)
+             
+            if ((selectedProviders.Count<1) || (string.IsNullOrEmpty(mobile_number.Text)))
             {
-                MessageBox.Show("Please select Provider !");
+                MessageBox.Show("Please select Provider or Enter mobile number !");
                 return;
             }
+
+
             TextRange txt = new TextRange(smsMsg.Document.ContentStart, smsMsg.Document.ContentEnd);
 
             if (txt.Text==String.Empty)
@@ -53,7 +59,16 @@ namespace Variedades
                 MessageBox.Show("Please add message !");
                 return;
             }
-            SaveData(txt.Text, string.Join(",", selectedProviders));
+
+            if (!string.IsNullOrEmpty(mobile_number.Text))
+            {
+                SaveSingle(mobile_number.Text, txt.Text);
+            }
+            else if(selectedProviders.Count >= 1) {
+                SaveData(txt.Text, string.Join(",", selectedProviders));
+            }
+
+            
         }
         public void bt_reset_Click(object sender, RoutedEventArgs e)
         {
@@ -78,6 +93,33 @@ namespace Variedades
                
                 sqlCmd.Parameters.AddWithValue("@msg", msg);
                 sqlCmd.Parameters.AddWithValue("@providers", providers);
+
+                sqlCmd.Prepare();
+                sqlCmd.ExecuteNonQuery();
+                MessageBox.Show("SMS sent !");
+                sqlCmd.Dispose();
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        private void SaveSingle(String mobile,String msg)
+        {
+            MySqlConnection conn = DbConn.getDBConnection();
+            try
+            {
+                conn.Open();
+                String query = " insert into sms_queue (mobile_number,message,status) values(@mobile,@msg,'PENDING') ";
+                MySqlCommand sqlCmd = new MySqlCommand(query, conn);
+
+                sqlCmd.Parameters.AddWithValue("@msg", msg);
+                sqlCmd.Parameters.AddWithValue("@mobile", mobile);
 
                 sqlCmd.Prepare();
                 sqlCmd.ExecuteNonQuery();

@@ -657,7 +657,7 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="BillCustomer1">
+          <Textbox Name="CustomerSID">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
@@ -671,7 +671,7 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>BillCustomer1</rd:DefaultName>
+            <rd:DefaultName>CustomerSID</rd:DefaultName>
             <Top>8.65043cm</Top>
             <Left>3.67862cm</Left>
             <Height>0.6cm</Height>
@@ -717,7 +717,7 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox17">
+          <Textbox Name="CustomerMobile">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
@@ -779,7 +779,7 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox19">
+          <Textbox Name="CustomerType">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
@@ -809,9 +809,43 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox6">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Thank you for recharge. Keep the STB power on until activated. Do not share your STB details with anyone.</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>14.55639cm</Top>
+            <Left>0.50789cm</Left>
+            <Height>0.89105cm</Height>
+            <Width>6.76642cm</Width>
+            <ZIndex>28</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Height>14.47808cm</Height>
+        <Height>15.72162cm</Height>
         <Width>7.7822cm</Width>
         <Style>
           <Border>
@@ -820,7 +854,7 @@
         </Style>
       </Rectangle>
     </ReportItems>
-    <Height>5.76253in</Height>
+    <Height>6.3042in</Height>
     <Style />
   </Body>
   <Width>3.1872in</Width>
@@ -836,7 +870,7 @@
   </Page>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="PosPrintTest">
+    <DataSource Name="Variedades">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
@@ -847,7 +881,7 @@
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
-        <DataSourceName>PosPrintTest</DataSourceName>
+        <DataSourceName>Variedades</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -863,8 +897,16 @@
           <DataField>BillAmount</DataField>
           <rd:TypeName>System.Single</rd:TypeName>
         </Field>
-        <Field Name="BillCustomer">
-          <DataField>BillCustomer</DataField>
+        <Field Name="CustomerSID">
+          <DataField>CustomerSID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CustomerMobile">
+          <DataField>CustomerMobile</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CustomerType">
+          <DataField>CustomerType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="BillDate">
@@ -893,9 +935,9 @@
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>PosPrintTest</rd:DataSetName>
+        <rd:DataSetName>Variedades</rd:DataSetName>
         <rd:TableName>Bill</rd:TableName>
-        <rd:ObjectDataSourceType>PosPrintTest.Bill, PosPrintTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>Variedades.Bill, Variedades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
