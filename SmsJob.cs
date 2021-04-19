@@ -23,7 +23,7 @@ namespace Variedades
             try
             {
                 conn.Open();
-                String query = " select id, mobile_number, message,status from sms_queue where status='PENDINGS' limit 10";
+                String query = " select id, mobile_number, message,status from sms_queue where status='PENDING' limit 10";
                 MySqlCommand sqlCmd = new MySqlCommand(query, conn);
                 sqlCmd.Prepare();
                 MySqlDataReader rdr = sqlCmd.ExecuteReader();
