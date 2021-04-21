@@ -61,7 +61,8 @@ namespace Variedades
                 client.BaseAddress = new Uri(URL);
                 var smsUserId = ConfigurationManager.AppSettings["SmsAccount"].Split(new char[] { ';' })[0];
                 var smsKey = ConfigurationManager.AppSettings["SmsAccount"].Split(new char[] { ';' })[1]; 
-                var urlParameters = (FormattableString)$"?user_id={smsUserId}&api_key={smsKey}&sender_id=NotifyDEMO&to=94{smsItem.mobile.TrimStart(new Char[] { '0' })}&message={smsItem.message}";
+                var smsSender = ConfigurationManager.AppSettings["SmsAccount"].Split(new char[] { ';' })[2]; 
+                var urlParameters = (FormattableString)$"?user_id={smsUserId}&api_key={smsKey}&sender_id={smsSender}&to=94{smsItem.mobile.TrimStart(new Char[] { '0' })}&message={smsItem.message}";
                 HttpResponseMessage response = client.GetAsync(urlParameters.ToString()).Result;
 
                 

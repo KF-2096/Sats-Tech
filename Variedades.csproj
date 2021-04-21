@@ -341,6 +341,12 @@
   <ItemGroup>
     <Resource Include="service-fee-logo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="cust.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="tv_lanka.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

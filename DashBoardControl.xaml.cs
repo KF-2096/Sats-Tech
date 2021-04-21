@@ -32,7 +32,7 @@ namespace Variedades
             try { airtelTotal.Text = dashBoardData["Airtel"]; } catch (Exception ex) { airtelTotal.Text = "0.00"; }
             try { tataTotal.Text = dashBoardData["TataSky"]; } catch (Exception ex) { tataTotal.Text = "0.00"; }
             try { tvlTotal.Text = dashBoardData["TvLanka"]; } catch (Exception ex) { tvlTotal.Text = "0.00"; }
-            try { serviceTotal.Text = dashBoardData["serviceCharge"]; } catch (Exception ex) { serviceTotal.Text = "0.00"; }
+            try { serviceTotal.Text = String.Format("{0:N}", dashBoardData["dailyTotal"]);  } catch (Exception ex) { serviceTotal.Text = "0.00"; }
             try { customerTotal.Text = dashBoardData["totalCustomer"]; } catch (Exception ex) { customerTotal.Text = "0.00"; }
             
 
@@ -67,6 +67,8 @@ namespace Variedades
         {
             MySqlConnection conn = DbConn.getDBConnection();
             IDictionary<string, string> dashdata = new Dictionary<string, string>();
+            float dailyTotal = 0f;
+
             try
             {
                 conn.Open();
@@ -85,33 +87,22 @@ namespace Variedades
 
                 while (rdr.Read())
                 {
+                    
                     dashdata.Add(rdr.GetString(0), rdr.GetString(1));
-
+                    dailyTotal += float.Parse(rdr.GetString(1));
                 }
+
+                dashdata.Add("dailyTotal", dailyTotal.ToString());
                 sqlCmd.Dispose();
-
-                query = "select  FORMAT(sum(extracharge_amount),2) " +
-                    " where tx_date between @stDate and @endDate  ";
-                sqlCmd = new MySqlCommand(query, conn);
-                sqlCmd.Parameters.AddWithValue("@stDate", stDate);
-                sqlCmd.Parameters.AddWithValue("@endDate", endDate);
-
-                rdr = sqlCmd.ExecuteReader();
-
-                while (rdr.Read())
-                {
-                    dashdata.Add("serviceCharge", rdr.GetString(1));
-
-                }
                 rdr.Dispose();
-                sqlCmd.Dispose();
+               
 
                 query = "select  count(id) from customer " ;
                 sqlCmd = new MySqlCommand(query, conn);
                 rdr = sqlCmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    dashdata.Add("totalCustomer", rdr.GetString(1));
+                    dashdata.Add("totalCustomer", rdr.GetString(0));
 
                 }
                 rdr.Dispose();

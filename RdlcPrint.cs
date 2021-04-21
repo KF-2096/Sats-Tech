@@ -26,7 +26,6 @@ namespace Variedades
             bills.Add(bill);
             LocalReport report = new LocalReport();
             report.ReportPath = @"Report1.rdlc";
-
             report.DataSources.Add( new ReportDataSource("DataSet1", bills));
             report.Refresh();
             Export(report);
@@ -45,7 +44,7 @@ namespace Variedades
             {
                 printDoc.PrintPage += new PrintPageEventHandler(PrintPage);
                 m_currentPageIndex = 0;
-                
+                printDoc.PrinterSettings.Copies = 1;
                 PaperSize pkCustomSize1 = new PaperSize("First custom size", 350, 700);
                 printDoc.DefaultPageSettings.PaperSize = pkCustomSize1;
                 printDoc.DefaultPageSettings.Margins.Left = 1;

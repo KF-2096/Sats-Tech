@@ -231,6 +231,11 @@ namespace Variedades
                 {
                     RdlcPrint rdlcPrint = new RdlcPrint();
                     rdlcPrint.Run(bill);
+                    if (MessageBox.Show("Do you want to print another copy?",
+"Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        rdlcPrint.Run(bill);
+                    }
                 }
                 catch (Exception ex)
                 {
