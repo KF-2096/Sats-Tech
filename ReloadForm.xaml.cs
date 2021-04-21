@@ -227,8 +227,15 @@ namespace Variedades
                 bill.ExtraChargeDesc = extraChargeDesc;
                 bill.PackageAmt = (float) packageAmount;
                 bill.PackageDesc = packageDesc;
-                RdlcPrint rdlcPrint = new RdlcPrint();
-                rdlcPrint.Run(bill);
+                try
+                {
+                    RdlcPrint rdlcPrint = new RdlcPrint();
+                    rdlcPrint.Run(bill);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Unable to Print " + ex.Message);
+                }
                 MessageBox.Show(" Saved Successfully ! ");
                 this.Close();
             }

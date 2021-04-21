@@ -89,6 +89,16 @@
                     </StackPanel>
                 </materialDesign:Card>
             </Border>
+            <Border BorderBrush="White" BorderThickness="5" Margin="20 20" CornerRadius="15" >
+                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth0" UniformCornerRadius="15" BorderThickness="5"
+                         BorderBrush="White" Width="110" Height="130" Background="#F6F6F8">
+                    <StackPanel Margin="10">
+                        <Image x:Name="customerImg" Height="57" Source="cust.png" RenderTransformOrigin="0.5,0.5" />
+                        <TextBlock x:Name="customerTotal" FontWeight="SemiBold" FontSize="25" Text="690K" Margin="0 10 0 0" />
+                        <materialDesign:PackIcon Kind="EllipsisHorizontal" HorizontalAlignment="Right" />
+                    </StackPanel>
+                </materialDesign:Card>
+            </Border>
         </WrapPanel>
     </Grid>
 </UserControl>

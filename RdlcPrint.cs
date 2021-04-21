@@ -27,16 +27,6 @@ namespace Variedades
             LocalReport report = new LocalReport();
             report.ReportPath = @"Report1.rdlc";
 
-            //ReportParameter p1 = new ReportParameter("billNumber", bill.BillNumber.ToString());
-            //ReportParameter p2 = new ReportParameter("billDate", bill.BillDate.ToShortDateString());
-            //ReportParameter p3 = new ReportParameter("customerSID", bill.CustomerSID);
-            //ReportParameter p4 = new ReportParameter("customerMobile", bill.CustomerMobile);
-            //ReportParameter p5 = new ReportParameter("customerType", bill.CustomerType);
-            //ReportParameter p6 = new ReportParameter("basicPack", bill.PackageAmt.ToString());
-            //ReportParameter p7 = new ReportParameter("addOnPack", bill.AddOnAmt.ToString());
-            //ReportParameter p8 = new ReportParameter("serviceCharge", bill.ExtraChargeAmt.ToString());
-            //ReportParameter p9 = new ReportParameter("billTotal", bill.BillAmount.ToString());
-            //report.SetParameters(new ReportParameter[] { p1, p2, p3, p4, p5,p6,p7,p8,p9});
             report.DataSources.Add( new ReportDataSource("DataSet1", bills));
             report.Refresh();
             Export(report);

@@ -33,7 +33,8 @@ namespace Variedades
             try { tataTotal.Text = dashBoardData["TataSky"]; } catch (Exception ex) { tataTotal.Text = "0.00"; }
             try { tvlTotal.Text = dashBoardData["TvLanka"]; } catch (Exception ex) { tvlTotal.Text = "0.00"; }
             try { serviceTotal.Text = dashBoardData["serviceCharge"]; } catch (Exception ex) { serviceTotal.Text = "0.00"; }
-
+            try { customerTotal.Text = dashBoardData["totalCustomer"]; } catch (Exception ex) { customerTotal.Text = "0.00"; }
+            
 
 
         }
@@ -73,8 +74,9 @@ namespace Variedades
                     " where tx_date between @stDate and @endDate group by provider ";
                 MySqlCommand sqlCmd = new MySqlCommand(query, conn);
 
-                DateTime endDate = DateTime.Today;
-                DateTime stDate = new DateTime(endDate.Year, endDate.Month, 1);
+                DateTime stDate = DateTime.Today;
+                DateTime endDate = stDate.Date.AddDays(1).AddTicks(-1);
+
                 sqlCmd.Parameters.AddWithValue("@stDate", stDate);
                 sqlCmd.Parameters.AddWithValue("@endDate", endDate);
 
@@ -93,13 +95,30 @@ namespace Variedades
                 sqlCmd = new MySqlCommand(query, conn);
                 sqlCmd.Parameters.AddWithValue("@stDate", stDate);
                 sqlCmd.Parameters.AddWithValue("@endDate", endDate);
+
+                rdr = sqlCmd.ExecuteReader();
+
                 while (rdr.Read())
                 {
                     dashdata.Add("serviceCharge", rdr.GetString(1));
 
                 }
+                rdr.Dispose();
                 sqlCmd.Dispose();
-                
+
+                query = "select  count(id) from customer " ;
+                sqlCmd = new MySqlCommand(query, conn);
+                rdr = sqlCmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    dashdata.Add("totalCustomer", rdr.GetString(1));
+
+                }
+                rdr.Dispose();
+                sqlCmd.Dispose();
+
+
+
             }
             catch (Exception err)
             {

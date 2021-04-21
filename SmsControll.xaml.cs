@@ -45,7 +45,7 @@ namespace Variedades
         public void bt_save_Click(object sender, RoutedEventArgs e)
         {
              
-            if ((selectedProviders.Count<1) || (string.IsNullOrEmpty(mobile_number.Text)))
+            if ((selectedProviders.Count<1) && (string.IsNullOrEmpty(mobile_number.Text)))
             {
                 MessageBox.Show("Please select Provider or Enter mobile number !");
                 return;
