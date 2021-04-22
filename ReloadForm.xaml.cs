@@ -197,7 +197,7 @@ namespace Variedades
                 query = "insert into sms_queue (mobile_number,message,status) values(@mobile,@message,@status)";
                 sqlCmd = new MySqlCommand(query, conn);
                 sqlCmd.Parameters.AddWithValue("@mobile", mobile);
-                sqlCmd.Parameters.AddWithValue("@message", "Dear customer\nThank you for recharging through our shop.\nPlease keep the setup box  switched on\nHelp Line : 0768866972");
+                sqlCmd.Parameters.AddWithValue("@message", "Dear customer\nThank you for recharging through our shop.\nPlease keep the setup box  switched on\nHelp Line : 0768866972 / 0112339920 ");
                 sqlCmd.Parameters.AddWithValue("@status", "PENDING");
                 sqlCmd.Prepare();
                 sqlCmd.ExecuteNonQuery();
