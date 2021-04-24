@@ -239,7 +239,7 @@ namespace Variedades
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Unable to Print " + ex.Message);
+                    MessageBox.Show("Unable to Print " + ex.ToString());
                 }
                 MessageBox.Show(" Saved Successfully ! ");
                 this.Close();

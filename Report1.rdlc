@@ -818,7 +818,6 @@
                     <Value>Thank you for recharge. Keep the STB power on until activated. Do not share your STB details with anyone.</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
-                      <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -830,7 +829,7 @@
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>14.55639cm</Top>
             <Left>0.50789cm</Left>
-            <Height>0.89105cm</Height>
+            <Height>1.42022cm</Height>
             <Width>6.76642cm</Width>
             <ZIndex>28</ZIndex>
             <Style>
@@ -845,7 +844,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Height>15.72162cm</Height>
+        <Height>17.12391cm</Height>
         <Width>7.7822cm</Width>
         <Style>
           <Border>
@@ -854,10 +853,10 @@
         </Style>
       </Rectangle>
     </ReportItems>
-    <Height>6.3042in</Height>
+    <Height>6.84587in</Height>
     <Style />
   </Body>
-  <Width>3.1872in</Width>
+  <Width>3.19596in</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>

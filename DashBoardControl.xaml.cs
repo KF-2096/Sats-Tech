@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Windows.Controls;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Windows;
 
 namespace Variedades
 {
@@ -47,20 +48,29 @@ namespace Variedades
             var smsUserId = ConfigurationManager.AppSettings["SmsAccount"].Split(new char[] { ';' })[0];
             var smsKey = ConfigurationManager.AppSettings["SmsAccount"].Split(new char[] { ';' })[1];
             var urlParameters = (FormattableString)$"?user_id={smsUserId}&api_key={smsKey}";
-            var response = client.GetAsync(urlParameters.ToString());
-            if (response.Result.IsSuccessStatusCode)
+            try
             {
-                var prods = await response.Result.Content.ReadAsStringAsync();
-                //dynamic data = J  Array.Parse(prods);
-                //dynamic config = JsonConvert.DeserializeObject<ExpandoObject>(prods, new ExpandoObjectConverter());
-                Console.WriteLine(prods);
-                dynamic data = JsonConvert.DeserializeObject (prods );
-                smsTotal.Text = String.Format("{0:N}", data.data.acc_balance);
-                 
-            } else
+                var response = client.GetAsync(urlParameters.ToString());
+                if (response.Result.IsSuccessStatusCode)
+                {
+                    var prods = await response.Result.Content.ReadAsStringAsync();
+                    //dynamic data = J  Array.Parse(prods);
+                    //dynamic config = JsonConvert.DeserializeObject<ExpandoObject>(prods, new ExpandoObjectConverter());
+                    Console.WriteLine(prods);
+                    dynamic data = JsonConvert.DeserializeObject(prods);
+                    smsTotal.Text = String.Format("{0:N}", data.data.acc_balance);
+
+                }
+                else
+                {
+                    smsTotal.Text = "0.00";
+                }
+            } catch (Exception ex)
             {
+                MessageBox.Show("Unable to connect to SMS Gateway, Please check your internet !");
                 smsTotal.Text = "0.00";
-            }        
+            }
+
         }
 
         private IDictionary<string, string> LoadDashBoardData()

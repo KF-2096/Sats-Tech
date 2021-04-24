@@ -62,19 +62,26 @@ namespace Variedades
                 var smsUserId = ConfigurationManager.AppSettings["SmsAccount"].Split(new char[] { ';' })[0];
                 var smsKey = ConfigurationManager.AppSettings["SmsAccount"].Split(new char[] { ';' })[1]; 
                 var smsSender = ConfigurationManager.AppSettings["SmsAccount"].Split(new char[] { ';' })[2]; 
-                var urlParameters = (FormattableString)$"?user_id={smsUserId}&api_key={smsKey}&sender_id={smsSender}&to=94{smsItem.mobile.TrimStart(new Char[] { '0' })}&message={smsItem.message}";
+                var urlParameters = (FormattableString)$"?user_id={smsUserId}&api_key={smsKey}&sender_id={smsSender}&to=94{smsItem.mobile.TrimStart(new Char[] { '0' })}&message={smsItem.message}&type=unicode";
                 HttpResponseMessage response = client.GetAsync(urlParameters.ToString()).Result;
 
-                
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                try
                 {
-                    UpdateSMSStatus(smsItem.id, "SENT");
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        UpdateSMSStatus(smsItem.id, "SENT");
+                    }
+                    else
+                    {
+                        WriteLogFile.WriteLog(String.Format("{0} @ {1}", DateTime.Now, " SMS REQUEST : " + response.RequestMessage.RequestUri.ToString()));
+                        WriteLogFile.WriteLog(String.Format("{0} @ {1}", DateTime.Now, " SMS ERROR : " + response.Content.ToString()));
+                        UpdateSMSStatus(smsItem.id, "FAILED");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    WriteLogFile.WriteLog(String.Format("{0} @ {1}", DateTime.Now, " SMS REQUEST : " + response.RequestMessage.RequestUri.ToString()));
-                    WriteLogFile.WriteLog(String.Format("{0} @ {1}", DateTime.Now, " SMS ERROR : "+ response.Content.ToString()));
-                    UpdateSMSStatus(smsItem.id, "FAILED");
+                    WriteLogFile.WriteLog(String.Format("{0} @ {1}", DateTime.Now, " Error communicating SMS Gateway "+ ex.ToString()));
+
                 }
             }
         }
