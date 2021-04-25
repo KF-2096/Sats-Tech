@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,9 +28,39 @@ namespace Variedades
         //Start main window
         private void LoginButton(object sender, RoutedEventArgs e)
         {
-            var main = new MainWindow();
-            main.Show();
-            this.Close();
+            errorTxt.Text="";
+			MySqlConnection conn = DbConn.getDBConnection();
+            try
+            {
+                conn.Open();
+                 
+                String query = " select * from user where name=@name and password=@pass";
+                MySqlCommand sqlCmd = new MySqlCommand(query, conn);
+                sqlCmd.Parameters.AddWithValue("@name", UserTextBox.Text);
+                sqlCmd.Parameters.AddWithValue("@pass", PassTextBox.Password);
+                sqlCmd.Prepare();
+                MySqlDataReader rdr = sqlCmd.ExecuteReader();
+                if (rdr.HasRows) 
+                {
+                    var main = new MainWindow();
+                    main.Show();
+                    this.Close();
+                }else
+                {
+					errorTxt.Text="Invalid Credentials. Please try again!";
+                }
+                rdr.Dispose();
+                sqlCmd.Dispose();
+                
+            }
+			catch(Exception ex)
+            {
+
+            }
+			finally
+			{
+				conn.Close();
+			}
         }
     }
 }

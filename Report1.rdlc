@@ -96,7 +96,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>0112333695 / 0112339920 / 0112339920</Value>
+                    <Value>0112333695 / 0112339920 / 0112339921</Value>
                     <Style>
                       <FontStyle>Italic</FontStyle>
                       <FontFamily>Calibri</FontFamily>
@@ -157,7 +157,7 @@
             </Style>
           </Image>
           <Line Name="Line2">
-            <Top>14.37508cm</Top>
+            <Top>15.32758cm</Top>
             <Left>0.57136cm</Left>
             <Height>0cm</Height>
             <Width>6.76642cm</Width>
@@ -188,7 +188,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Basic Pack</Value>
+                    <Value>Pack</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -196,8 +196,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox7</rd:DefaultName>
-            <Top>11.13045cm</Top>
-            <Left>0.50464cm</Left>
+            <Top>11.15598cm</Top>
+            <Left>0.46016cm</Left>
             <Height>0.53799cm</Height>
             <Width>2.99759cm</Width>
             <ZIndex>6</ZIndex>
@@ -229,7 +229,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>PackageAmt</rd:DefaultName>
-            <Top>11.13045cm</Top>
+            <Top>11.15598cm</Top>
             <Left>3.67862cm</Left>
             <Height>0.53799cm</Height>
             <Width>3.52572cm</Width>
@@ -263,7 +263,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Add-On Pack</Value>
+                    <Value>Add-On </Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -271,7 +271,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox7</rd:DefaultName>
-            <Top>11.84483cm</Top>
+            <Top>12.79733cm</Top>
             <Left>0.50464cm</Left>
             <Height>0.6cm</Height>
             <Width>2.99759cm</Width>
@@ -304,7 +304,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>AddOnAmt</rd:DefaultName>
-            <Top>11.84483cm</Top>
+            <Top>12.79733cm</Top>
             <Left>3.67862cm</Left>
             <Height>0.6cm</Height>
             <Width>3.52572cm</Width>
@@ -334,7 +334,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox7</rd:DefaultName>
-            <Top>12.62122cm</Top>
+            <Top>14.52622cm</Top>
             <Left>0.52688cm</Left>
             <Height>0.6cm</Height>
             <Width>2.99759cm</Width>
@@ -366,7 +366,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ExtraChargeAmt</rd:DefaultName>
-            <Top>12.62122cm</Top>
+            <Top>14.52622cm</Top>
             <Left>3.67862cm</Left>
             <Height>0.6cm</Height>
             <Width>3.52572cm</Width>
@@ -382,7 +382,7 @@
             </Style>
           </Textbox>
           <Line Name="Line5">
-            <Top>13.39761cm</Top>
+            <Top>14.35011cm</Top>
             <Left>0.50464cm</Left>
             <Height>0cm</Height>
             <Width>6.76642cm</Width>
@@ -409,7 +409,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox7</rd:DefaultName>
-            <Top>13.59869cm</Top>
+            <Top>15.50369cm</Top>
             <Left>0.50464cm</Left>
             <Height>0.6cm</Height>
             <Width>3.06431cm</Width>
@@ -442,7 +442,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>BillAmount</rd:DefaultName>
-            <Top>13.59869cm</Top>
+            <Top>15.50369cm</Top>
             <Left>3.70086cm</Left>
             <Height>0.6cm</Height>
             <Width>3.50348cm</Width>
@@ -665,7 +665,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!CustomerSID.Value, "DataSet1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>14pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -797,7 +799,7 @@
             <Top>10.2032cm</Top>
             <Left>3.67862cm</Left>
             <Height>0.6cm</Height>
-            <Width>3.54796cm</Width>
+            <Width>3.52572cm</Width>
             <ZIndex>27</ZIndex>
             <Style>
               <Border>
@@ -827,11 +829,73 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>14.55639cm</Top>
+            <Top>16.30264cm</Top>
             <Left>0.50789cm</Left>
             <Height>1.42022cm</Height>
-            <Width>6.76642cm</Width>
+            <Width>6.69645cm</Width>
             <ZIndex>28</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox3">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!PackageDesc.Value, "DataSet1")</Value>
+                    <Style>
+                      <FontSize>12pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox3</rd:DefaultName>
+            <Top>11.87036cm</Top>
+            <Left>0.46016cm</Left>
+            <Height>0.75058cm</Height>
+            <Width>6.74418cm</Width>
+            <ZIndex>29</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox20">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!AddOnDesc.Value, "DataSet1")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox20</rd:DefaultName>
+            <Top>13.57372cm</Top>
+            <Left>0.50464cm</Left>
+            <Height>0.6cm</Height>
+            <Width>6.6997cm</Width>
+            <ZIndex>30</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -844,7 +908,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Height>17.12391cm</Height>
+        <Height>17.8912cm</Height>
         <Width>7.7822cm</Width>
         <Style>
           <Border>
@@ -853,7 +917,7 @@
         </Style>
       </Rectangle>
     </ReportItems>
-    <Height>6.84587in</Height>
+    <Height>7.14795in</Height>
     <Style />
   </Body>
   <Width>3.19596in</Width>

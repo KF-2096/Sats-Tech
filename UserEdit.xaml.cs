@@ -124,6 +124,7 @@ namespace Variedades
                 sqlCmd.ExecuteNonQuery();
                 sqlCmd.Dispose();
                 MessageBox.Show(" Updated Successfully ! ");
+                this.Close();
             }
             catch (Exception err) 
             {

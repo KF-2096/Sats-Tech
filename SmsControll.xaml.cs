@@ -63,9 +63,11 @@ namespace Variedades
             if (!string.IsNullOrEmpty(mobile_number.Text))
             {
                 SaveSingle(mobile_number.Text, txt.Text);
+                bt_reset_Click(sender, e);
             }
             else if(selectedProviders.Count >= 1) {
                 SaveData(txt.Text, string.Join(",", selectedProviders));
+                bt_reset_Click(sender, e);
             }
 
             
@@ -79,6 +81,7 @@ namespace Variedades
             TvLanka.IsChecked = false;
             SunDirect.IsChecked = false;
             smsMsg.Document.Blocks.Clear();
+            mobile_number.Clear();
         }
 
         private void SaveData(string msg, string providers)

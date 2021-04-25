@@ -24,6 +24,8 @@
                 <TextBlock Margin="0,20,0,0" FontSize="30" Text="Password"/>
                 <PasswordBox VerticalAlignment="Center" FontSize="15" Width="150" Height="30" Grid.Row="1" Name="PassTextBox" Margin="5"/>
                 <Button Click="LoginButton" Margin="0,20,0,0" Width="100px" Height="50px" Grid.Row="2" Content="Login" />
+                <TextBlock x:Name="errorTxt" Margin="0,20,0,0" FontSize="15" TextWrapping="Wrap" Text=""  Foreground="#A400C4FF"/>
+
             </StackPanel>
             
         </Grid>
