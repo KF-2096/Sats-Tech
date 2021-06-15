@@ -37,10 +37,10 @@ namespace Variedades
                     sqlCmd.ExecuteNonQuery();
                 }
                 //Purge SMS_QUEUE
-                query = "delete from sms_queue where status !='PENDING'";
-                sqlCmd = new MySqlCommand(query, conn);
-                sqlCmd.Prepare();
-                sqlCmd.ExecuteNonQuery();
+                //query = "delete from sms_queue where status !='PENDING'";
+                //sqlCmd = new MySqlCommand(query, conn);
+                //sqlCmd.Prepare();
+                //sqlCmd.ExecuteNonQuery();
 
 
                 sqlCmd.Dispose();
