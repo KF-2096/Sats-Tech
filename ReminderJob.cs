@@ -21,7 +21,7 @@ namespace Variedades
                 
                 String query = " insert into sms_queue(mobile_number, message, status) " +
 " select mobile, CONCAT('Dear customer,\nYour ', provider, ' subscription is going to expire.\nPlease pay your bill on or before ', " +
-" DATE_FORMAT(DATE_ADD(now(), INTERVAL 4 DAY), '%Y/%m/%d'), ' . Call for recharge 0112339920  /0768866972 ')  as message , 'PENDING' as status " +
+" DATE_FORMAT(DATE_ADD(now(), INTERVAL 4 DAY), '%Y/%m/%d'), ' . Call for recharge 0112339920 / 0768866972.\nif you have paid ignore this messege.')  as message , 'PENDING' as status " +
 " from reload join customer on reload.customer_id = customer.id " +
 " where datediff(expiry_date, now()) = 4 and (select last_run from bg_task_last_run where id =1 )< DATE_FORMAT( now() , '%Y/%m/%d') ";
 

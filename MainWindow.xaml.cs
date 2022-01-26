@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using MySql.Data.MySqlClient;
+using Quartz;
 using Quartz.Impl;
 using Quartz.Logging;
 using System;
@@ -29,9 +30,34 @@ namespace Variedades
         {
             InitializeComponent();
             LogProvider.SetCurrentLogProvider(new ConsoleLogProvider());
+            PurgeJob();
             LoadHomeScreen();
             _ = RunProgramRunExample();
 
+        }
+
+        private void PurgeJob()
+        {
+            MySqlConnection conn = DbConn.getDBConnection();
+            try
+            {
+                conn.Open();
+                String query = " delete from sms_queue where status !='PENDING' and datediff(created_date, now()) < 0";
+                MySqlCommand sqlCmd = new MySqlCommand(query, conn);
+                sqlCmd.Prepare();
+                sqlCmd.ExecuteNonQuery();
+                sqlCmd.Dispose();
+                this.Close();
+                Console.WriteLine(" Purge task completed.");
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err);
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
 
         private void LoadHomeScreen()
