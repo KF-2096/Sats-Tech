@@ -23,6 +23,7 @@ namespace Variedades
         public LoginWindow()
         {
             InitializeComponent();
+            
         }
 
         //Start main window
@@ -33,7 +34,12 @@ namespace Variedades
             try
             {
                 conn.Open();
-                 
+                String query1 = " delete from sms_queue where status !='PENDING' and datediff(created_date, now()) < 0";
+                MySqlCommand sqlCmd1 = new MySqlCommand(query1, conn);
+                sqlCmd1.Prepare();
+                sqlCmd1.ExecuteNonQuery();
+                sqlCmd1.Dispose();
+
                 String query = " select * from user where name=@name and password=@pass";
                 MySqlCommand sqlCmd = new MySqlCommand(query, conn);
                 sqlCmd.Parameters.AddWithValue("@name", UserTextBox.Text);
